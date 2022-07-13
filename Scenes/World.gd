@@ -10,7 +10,6 @@ func _ready():
 
 
 func _process(delta):
-	print(groundY)
 	if ($Hamster.position.y):
 		pass
 

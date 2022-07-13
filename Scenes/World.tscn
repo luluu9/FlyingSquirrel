@@ -11,7 +11,7 @@ bounce = 1.0
 absorbent = true
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 598.75, 746 )
+extents = Vector2( 303, 156.5 )
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 50, 4307 )
@@ -39,7 +39,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ramp/JumpArea"]
-position = Vector2( -539.25, -444 )
+position = Vector2( -231, 91.5 )
 shape = SubResource( 3 )
 
 [node name="Ground" type="StaticBody2D" parent="."]

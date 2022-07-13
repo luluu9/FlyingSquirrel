@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Assets/Hamster.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Hamster.gd" type="Script" id=2]
@@ -7,9 +7,12 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 26.0768
 
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.447883, 0.428681 ), -2.56832, -2.56832, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
 [sub_resource type="Gradient" id=2]
 offsets = PoolRealArray( 0, 0.656934, 1 )
-colors = PoolColorArray( 0.0837494, 0.379883, 0.162988, 1, 0.694118, 0.792157, 0.721569, 1, 1, 1, 1, 0.0588235 )
+colors = PoolColorArray( 0.281949, 0.569336, 0.281386, 1, 0.914986, 1, 0.93879, 1, 1, 1, 1, 0.0588235 )
 
 [node name="Hamster" type="RigidBody2D"]
 collision_layer = 2
@@ -42,19 +45,23 @@ valign = 1
 
 [node name="FartParticles" type="CPUParticles2D" parent="."]
 z_index = -1
+emitting = false
 amount = 5
-lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+local_coords = false
 draw_order = 1
 texture = ExtResource( 3 )
+emission_shape = 2
+emission_rect_extents = Vector2( 20, 20 )
 direction = Vector2( -1, 1 )
-spread = 20.0
+spread = 180.0
 gravity = Vector2( 0, 0 )
-initial_velocity = 100.0
-initial_velocity_random = 0.4
-angular_velocity = 100.0
-angular_velocity_random = 1.0
+angle = 360.0
 angle_random = 1.0
 scale_amount = 0.05
+scale_amount_random = 0.1
+scale_amount_curve = SubResource( 3 )
 color_ramp = SubResource( 2 )
 
 [connection signal="body_entered" from="." to="." method="_on_Hamster_body_entered"]

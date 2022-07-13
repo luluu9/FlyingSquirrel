@@ -3,40 +3,44 @@ extends RigidBody2D
 signal landed(position_y)
 
 export var jumpVel = Vector2(1000, -2000)
+export var fartVel = Vector2(300, 300)
 var slowdownStartLimit = 250
 var slowdownFactor = 0.1
 var landedLimit = 3
 var allowJump = false
+var allowFart = true
 var onGround = false
 var landed = false
-
-
-func _ready():
-	pass # Replace with function body.
-
-
-func _process(delta):
-	if (allowJump and Input.is_action_just_pressed("space")):
-		apply_central_impulse(jumpVel)
-	if (onGround):
-		if (linear_velocity.length() < slowdownStartLimit):
-			slowdown()
-
-
-func _on_JumpArea_body_entered(body):
-	allowJump = true
-	$JumpLabel.show()
-
-
-func _on_JumpArea_body_exited(body):
-	allowJump = false
-	$JumpLabel.hide()
 
 
 func reset():
 	landed = false
 	onGround = false
 	allowJump = false
+	allowFart = true
+
+
+func _process(delta):
+	if (allowJump and Input.is_action_just_pressed("space")):
+		jump()
+	elif (allowFart and Input.is_action_just_pressed("space")):
+		fart()
+		
+	if (onGround):
+		if (linear_velocity.length() < slowdownStartLimit):
+			slowdown()
+
+
+func jump():
+	print("Jumping!")
+	allowJump = false
+	apply_central_impulse(jumpVel)
+
+
+func fart():
+	print("Farting!")
+	$FartParticles.emitting = true
+	apply_central_impulse(jumpVel)
 
 
 func slowdown():
@@ -47,8 +51,20 @@ func slowdown():
 
 func land():
 	if (not landed):
-		emit_signal("landed", position.x)
 		landed = true
+		allowFart = false
+		allowJump = false
+		emit_signal("landed", position.x)
+
+
+func _on_JumpArea_body_entered(body):
+	allowJump = true
+	$JumpLabel.show()
+
+
+func _on_JumpArea_body_exited(body):
+	allowJump = false
+	$JumpLabel.hide()
 
 
 func _on_Hamster_body_entered(body):
