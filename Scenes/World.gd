@@ -2,6 +2,7 @@ extends Node
 
 var farthestDistance = 0 setget updateFarthest
 onready var groundY = $Ground.global_position.y
+var adjustGroundMargin = 500
 export var startPos = Vector2(-250, -800)
 
 
@@ -10,8 +11,8 @@ func _ready():
 
 
 func _process(delta):
-	if ($Hamster.position.y):
-		pass
+	if ($Hamster.position.y < groundY+adjustGroundMargin):
+		$Ground.position.x = $Hamster.position.x
 
 
 func updateFarthest(newValue):

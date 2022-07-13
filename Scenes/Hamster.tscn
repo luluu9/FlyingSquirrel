@@ -47,6 +47,7 @@ valign = 1
 z_index = -1
 emitting = false
 amount = 5
+lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
 local_coords = false
