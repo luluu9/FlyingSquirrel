@@ -1,37 +1,42 @@
 extends RigidBody2D
 
+signal landed(position_y)
 
 export var jumpVel = Vector2(1000, -2000)
-var slowdownStartLimit = 250;
-var slowdownFactor = 0.1;
-var landedLimit = 3;
-var allowJump = false;
-var onGround = false;
+var slowdownStartLimit = 250
+var slowdownFactor = 0.1
+var landedLimit = 3
+var allowJump = false
+var onGround = false
+var landed = false
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if (allowJump and Input.is_action_just_pressed("space")):
-		apply_central_impulse(jumpVel);
+		apply_central_impulse(jumpVel)
 	if (onGround):
 		if (linear_velocity.length() < slowdownStartLimit):
 			slowdown()
-	#print(linear_velocity.length());
-	print(position.y)
+
 
 func _on_JumpArea_body_entered(body):
-	allowJump = true;
-	$JumpLabel.show();
+	allowJump = true
+	$JumpLabel.show()
 
 
 func _on_JumpArea_body_exited(body):
-	allowJump = true;
-	$JumpLabel.hide();
+	allowJump = false
+	$JumpLabel.hide()
+
+
+func reset():
+	landed = false
+	onGround = false
+	allowJump = false
 
 
 func slowdown():
@@ -41,13 +46,16 @@ func slowdown():
 
 
 func land():
-	print("STOP")
+	if (not landed):
+		emit_signal("landed", position.x)
+		landed = true
+
 
 func _on_Hamster_body_entered(body):
 	if (body.name == "Ground"):
-		onGround = true;
+		onGround = true
 
 
 func _on_Hamster_body_exited(body):
 	if (body.name == "Ground"):
-		onGround = false;
+		onGround = false

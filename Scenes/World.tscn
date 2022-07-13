@@ -1,19 +1,20 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Assets/Ramp.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Hamster.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/ParallaxBackground.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/World.gd" type="Script" id=4]
+[ext_resource path="res://Assets/red-flag.png" type="Texture" id=5]
 
 [sub_resource type="PhysicsMaterial" id=1]
 bounce = 1.0
 absorbent = true
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 59.5, 61.25 )
+extents = Vector2( 598.75, 746 )
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 50, 2200 )
+extents = Vector2( 50, 4307 )
 
 [sub_resource type="PhysicsMaterial" id=2]
 absorbent = true
@@ -38,6 +39,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ramp/JumpArea"]
+position = Vector2( -539.25, -444 )
 shape = SubResource( 3 )
 
 [node name="Ground" type="StaticBody2D" parent="."]
@@ -45,8 +47,8 @@ position = Vector2( 1786, 748 )
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
-position = Vector2( -300, -190 )
-rotation = 4.71239
+position = Vector2( 1807, -189.998 )
+rotation = -1.5708
 shape = SubResource( 5 )
 
 [node name="ParallaxBackground" parent="." instance=ExtResource( 3 )]
@@ -54,7 +56,7 @@ offset = Vector2( 0, 850 )
 transform = Transform2D( 1, 0, 0, 1, 0, 850 )
 
 [node name="Hamster" parent="." instance=ExtResource( 2 )]
-position = Vector2( -240, -772 )
+position = Vector2( -250, -800 )
 z_index = 1
 physics_material_override = SubResource( 2 )
 gravity_scale = 0.4
@@ -62,5 +64,15 @@ contacts_reported = 3
 contact_monitor = true
 applied_force = Vector2( 0, 4000 )
 
+[node name="DistanceFlag" type="Sprite" parent="."]
+visible = false
+position = Vector2( 0, 450 )
+scale = Vector2( 0.3, 0.3 )
+z_index = 2
+texture = ExtResource( 5 )
+centered = false
+offset = Vector2( 0, -300 )
+
 [connection signal="body_entered" from="Ramp/JumpArea" to="Hamster" method="_on_JumpArea_body_entered"]
 [connection signal="body_exited" from="Ramp/JumpArea" to="Hamster" method="_on_JumpArea_body_exited"]
+[connection signal="landed" from="Hamster" to="." method="_on_Hamster_landed"]

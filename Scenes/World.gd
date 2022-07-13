@@ -1,19 +1,33 @@
 extends Node
 
+var farthestDistance = 0 setget updateFarthest
+onready var groundY = $Ground.global_position.y
+export var startPos = Vector2(-250, -800)
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 
-onready var groundY = $Ground.global_position.y;
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	print(groundY)
 	if ($Hamster.position.y):
 		pass
+
+
+func updateFarthest(newValue):
+	if (newValue > farthestDistance):
+		farthestDistance = newValue
+		$DistanceFlag.position.x = farthestDistance
+		$DistanceFlag.visible = true
+
+
+func _on_Hamster_landed(position_x):
+	updateFarthest(position_x)
+	yield(get_tree().create_timer(1.0), "timeout")
+	resetHamster()
+
+
+func resetHamster():
+	$Hamster.position = startPos
+	$Hamster.reset()
