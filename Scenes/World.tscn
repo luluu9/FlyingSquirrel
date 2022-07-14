@@ -10,13 +10,13 @@
 bounce = 1.0
 absorbent = true
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 303, 156.5 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 50, 2000 )
 
-[sub_resource type="PhysicsMaterial" id=2]
+[sub_resource type="PhysicsMaterial" id=4]
 absorbent = true
 
 [node name="World" type="Node"]
@@ -40,16 +40,15 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ramp/JumpArea"]
 position = Vector2( -231, 91.5 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="Ground" type="StaticBody2D" parent="."]
-position = Vector2( 500, 748 )
+position = Vector2( 0, 585 )
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
-position = Vector2( 1807, -190 )
 rotation = -1.5708
-shape = SubResource( 5 )
+shape = SubResource( 3 )
 
 [node name="ParallaxBackground" parent="." instance=ExtResource( 3 )]
 offset = Vector2( 0, 850 )
@@ -58,11 +57,12 @@ transform = Transform2D( 1, 0, 0, 1, 0, 850 )
 [node name="Hamster" parent="." instance=ExtResource( 2 )]
 position = Vector2( -250, -800 )
 z_index = 1
-physics_material_override = SubResource( 2 )
-gravity_scale = 0.4
+physics_material_override = SubResource( 4 )
+gravity_scale = -2.0
 contacts_reported = 3
 contact_monitor = true
 applied_force = Vector2( 0, 4000 )
+fartVel = Vector2( 500, -3000 )
 
 [node name="DistanceFlag" type="Sprite" parent="."]
 visible = false

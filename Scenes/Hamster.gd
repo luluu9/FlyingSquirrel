@@ -3,7 +3,7 @@ extends RigidBody2D
 signal landed(position_y)
 
 export var jumpVel = Vector2(1000, -2000)
-export var fartVel = Vector2(300, 300)
+export var fartVel = Vector2(500, -300)
 var slowdownStartLimit = 250
 var slowdownFactor = 0.1
 var landedLimit = 3
@@ -40,7 +40,12 @@ func jump():
 func fart():
 	print("Farting!")
 	$FartParticles.emitting = true
-	apply_central_impulse(jumpVel)
+	apply_central_impulse(fartVel )
+	allowFart = false
+
+func addFart():
+	print("Adding fart to stomach!")
+	allowFart = true
 
 
 func slowdown():
