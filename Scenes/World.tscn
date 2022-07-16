@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Assets/Ramp.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Hamster.tscn" type="PackedScene" id=2]
@@ -15,9 +15,6 @@ extents = Vector2( 303, 156.5 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 50, 2000 )
-
-[sub_resource type="PhysicsMaterial" id=4]
-absorbent = true
 
 [node name="World" type="Node"]
 script = ExtResource( 4 )
@@ -57,10 +54,10 @@ transform = Transform2D( 1, 0, 0, 1, 0, 850 )
 [node name="Hamster" parent="." instance=ExtResource( 2 )]
 position = Vector2( -250, -800 )
 z_index = 1
-physics_material_override = SubResource( 4 )
 gravity_scale = -2.0
 contacts_reported = 3
 contact_monitor = true
+linear_damp = 1.0
 applied_force = Vector2( 0, 4000 )
 fartVel = Vector2( 500, -3000 )
 

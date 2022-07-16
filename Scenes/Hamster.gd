@@ -29,6 +29,9 @@ func _process(delta):
 	if (onGround):
 		if (linear_velocity.length() < slowdownStartLimit):
 			slowdown()
+	
+	print("Speed:", linear_velocity.length())
+	print("Score:", position.x)
 
 
 func jump():
@@ -42,6 +45,7 @@ func fart():
 	$FartParticles.emitting = true
 	apply_central_impulse(fartVel )
 	allowFart = false
+
 
 func addFart():
 	print("Adding fart to stomach!")
