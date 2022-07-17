@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/ParallaxBackground.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/FlyingSquirrel.tscn" type="PackedScene" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 50, 200000 )
 
 [node name="testWorld" type="Node"]
 
@@ -10,3 +13,11 @@
 [node name="FlyingSquirrel" parent="." instance=ExtResource( 2 )]
 position = Vector2( 49, -1031 )
 z_index = 1
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2( 2493, -282 )
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+rotation = -1.5708
+shape = SubResource( 1 )
